@@ -1,4 +1,4 @@
-defmodule BillPlanner.BillTypes.Type do
+defmodule BillPlanner.Bills.Type do
   use Ecto.Schema
   import Ecto.Changeset
 

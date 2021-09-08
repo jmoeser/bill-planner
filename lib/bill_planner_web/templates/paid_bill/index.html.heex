@@ -1,0 +1,28 @@
+<h1>Listing Paidbills</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount in cents</th>
+      <th>Paid date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for paid_bill <- @paidbills do %>
+    <tr>
+      <td><%= paid_bill.amount_in_cents %></td>
+      <td><%= paid_bill.paid_date %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.paid_bill_path(@conn, :show, paid_bill) %></span>
+        <span><%= link "Edit", to: Routes.paid_bill_path(@conn, :edit, paid_bill) %></span>
+        <span><%= link "Delete", to: Routes.paid_bill_path(@conn, :delete, paid_bill), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Paid bill", to: Routes.paid_bill_path(@conn, :new) %></span>

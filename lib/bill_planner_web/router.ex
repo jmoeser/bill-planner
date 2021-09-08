@@ -7,7 +7,7 @@ defmodule BillPlannerWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {BillPlannerWeb.LayoutView, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
   end
 
   pipeline :api do
@@ -20,6 +20,8 @@ defmodule BillPlannerWeb.Router do
     get "/", PageController, :index
     resources "/types", TypeController
     resources "/providers", ProviderController
+    resources "/bills", BillController
+    resources "/paid_bills", PaidBillController
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,23 @@
+<h1>Show Bill</h1>
+
+<ul>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @bill.start_date %>
+  </li>
+
+  <li>
+    <strong>Recurrence:</strong>
+    <%= @bill.recurrence_in_days %>
+  </li>
+
+  <li>
+    <strong>Finish date:</strong>
+    <%= @bill.finish_date %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.bill_path(@conn, :edit, @bill) %></span> |
+<span><%= link "Back", to: Routes.bill_path(@conn, :index) %></span>

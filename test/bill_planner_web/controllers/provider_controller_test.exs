@@ -1,7 +1,7 @@
 defmodule BillPlannerWeb.ProviderControllerTest do
   use BillPlannerWeb.ConnCase
 
-  import BillPlanner.ProvidersFixtures
+  import BillPlanner.BillsFixtures
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}

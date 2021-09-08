@@ -1,4 +1,4 @@
-defmodule BillPlanner.Providers.Provider do
+defmodule BillPlanner.Bills.Provider do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -13,5 +13,6 @@ defmodule BillPlanner.Providers.Provider do
     provider
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:name)
   end
 end

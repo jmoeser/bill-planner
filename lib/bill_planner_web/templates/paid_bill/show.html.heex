@@ -1,0 +1,18 @@
+<h1>Show Paid bill</h1>
+
+<ul>
+
+  <li>
+    <strong>Amount in cents:</strong>
+    <%= @paid_bill.amount_in_cents %>
+  </li>
+
+  <li>
+    <strong>Paid date:</strong>
+    <%= @paid_bill.paid_date %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.paid_bill_path(@conn, :edit, @paid_bill) %></span> |
+<span><%= link "Back", to: Routes.paid_bill_path(@conn, :index) %></span>

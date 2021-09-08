@@ -4,9 +4,10 @@ defmodule BillPlanner.Repo.Migrations.CreateTypes do
   def change do
     create table(:types) do
       add(:type, :string, null: false)
+
+      timestamps()
     end
 
-    create(unique_index(:types, [:type]))
-
+    create unique_index(:types, [:type])
   end
 end

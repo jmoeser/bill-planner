@@ -1,0 +1,30 @@
+<h1>Listing Bills</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start date</th>
+      <th>Recurrence</th>
+      <th>Finish date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for bill <- @bills do %>
+    <tr>
+      <td><%= bill.start_date %></td>
+      <td><%= bill.recurrence_in_days %></td>
+      <td><%= bill.finish_date %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.bill_path(@conn, :show, bill) %></span>
+        <span><%= link "Edit", to: Routes.bill_path(@conn, :edit, bill) %></span>
+        <span><%= link "Delete", to: Routes.bill_path(@conn, :delete, bill), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Bill", to: Routes.bill_path(@conn, :new) %></span>

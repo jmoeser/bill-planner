@@ -1,21 +1,21 @@
 defmodule BillPlannerWeb.TypeController do
   use BillPlannerWeb, :controller
 
-  alias BillPlanner.BillTypes
-  alias BillPlanner.BillTypes.Type
+  alias BillPlanner.Bills
+  alias BillPlanner.Bills.Type
 
   def index(conn, _params) do
-    types = BillTypes.list_types()
+    types = Bills.list_types()
     render(conn, "index.html", types: types)
   end
 
   def new(conn, _params) do
-    changeset = BillTypes.change_type(%Type{})
+    changeset = Bills.change_type(%Type{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"type" => type_params}) do
-    case BillTypes.create_type(type_params) do
+    case Bills.create_type(type_params) do
       {:ok, type} ->
         conn
         |> put_flash(:info, "Type created successfully.")
@@ -27,20 +27,20 @@ defmodule BillPlannerWeb.TypeController do
   end
 
   def show(conn, %{"id" => id}) do
-    type = BillTypes.get_type!(id)
+    type = Bills.get_type!(id)
     render(conn, "show.html", type: type)
   end
 
   def edit(conn, %{"id" => id}) do
-    type = BillTypes.get_type!(id)
-    changeset = BillTypes.change_type(type)
+    type = Bills.get_type!(id)
+    changeset = Bills.change_type(type)
     render(conn, "edit.html", type: type, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "type" => type_params}) do
-    type = BillTypes.get_type!(id)
+    type = Bills.get_type!(id)
 
-    case BillTypes.update_type(type, type_params) do
+    case Bills.update_type(type, type_params) do
       {:ok, type} ->
         conn
         |> put_flash(:info, "Type updated successfully.")
@@ -52,8 +52,8 @@ defmodule BillPlannerWeb.TypeController do
   end
 
   def delete(conn, %{"id" => id}) do
-    type = BillTypes.get_type!(id)
-    {:ok, _type} = BillTypes.delete_type(type)
+    type = Bills.get_type!(id)
+    {:ok, _type} = Bills.delete_type(type)
 
     conn
     |> put_flash(:info, "Type deleted successfully.")

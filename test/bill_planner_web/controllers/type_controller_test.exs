@@ -1,7 +1,7 @@
 defmodule BillPlannerWeb.TypeControllerTest do
   use BillPlannerWeb.ConnCase
 
-  import BillPlanner.BillTypesFixtures
+  import BillPlanner.BillsFixtures
 
   @create_attrs %{type: "some type"}
   @update_attrs %{type: "some updated type"}
