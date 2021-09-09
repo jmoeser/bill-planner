@@ -129,7 +129,11 @@ defmodule BillPlanner.BillsTest do
     end
 
     test "create_bill/1 with valid data creates a bill" do
-      valid_attrs = %{finish_date: ~D[2021-09-02], recurrence_in_days: 42, start_date: ~D[2021-09-02]}
+      valid_attrs = %{
+        finish_date: ~D[2021-09-02],
+        recurrence_in_days: 42,
+        start_date: ~D[2021-09-02]
+      }
 
       assert {:ok, %Bill{} = bill} = Bills.create_bill(valid_attrs)
       assert bill.finish_date == ~D[2021-09-02]
@@ -143,7 +147,12 @@ defmodule BillPlanner.BillsTest do
 
     test "update_bill/2 with valid data updates the bill" do
       bill = bill_fixture()
-      update_attrs = %{finish_date: ~D[2021-09-03], recurrence_in_days: 43, start_date: ~D[2021-09-03]}
+
+      update_attrs = %{
+        finish_date: ~D[2021-09-03],
+        recurrence_in_days: 43,
+        start_date: ~D[2021-09-03]
+      }
 
       assert {:ok, %Bill{} = bill} = Bills.update_bill(bill, update_attrs)
       assert bill.finish_date == ~D[2021-09-03]
@@ -169,8 +178,9 @@ defmodule BillPlanner.BillsTest do
     end
   end
 
-  describe "paidbills" do
+  describe "paid_bills" do
     alias BillPlanner.Bills.PaidBill
+    alias BillPlanner.MoneyTypeConvert
 
     import BillPlanner.BillsFixtures
 
@@ -178,12 +188,21 @@ defmodule BillPlanner.BillsTest do
 
     test "list_paidbills/0 returns all paidbills" do
       paid_bill = paid_bill_fixture()
-      assert Bills.list_paidbills() == [paid_bill]
+
+      assert Bills.list_paidbills()
+             |> Enum.map(fn item -> MoneyTypeConvert.set_price_from_cents(item, :amount) end) == [
+               paid_bill
+             ]
     end
 
     test "get_paid_bill!/1 returns the paid_bill with given id" do
       paid_bill = paid_bill_fixture()
-      assert Bills.get_paid_bill!(paid_bill.id) == paid_bill
+
+      assert MoneyTypeConvert.convert_cents_to_dollars(
+               Bills.get_paid_bill!(paid_bill.id),
+               :amount,
+               paid_bill.amount_in_cents
+             ) == paid_bill
     end
 
     test "create_paid_bill/1 with valid data creates a paid_bill" do
@@ -210,7 +229,13 @@ defmodule BillPlanner.BillsTest do
     test "update_paid_bill/2 with invalid data returns error changeset" do
       paid_bill = paid_bill_fixture()
       assert {:error, %Ecto.Changeset{}} = Bills.update_paid_bill(paid_bill, @invalid_attrs)
-      assert paid_bill == Bills.get_paid_bill!(paid_bill.id)
+
+      assert paid_bill ==
+               MoneyTypeConvert.convert_cents_to_dollars(
+                 Bills.get_paid_bill!(paid_bill.id),
+                 :amount,
+                 paid_bill.amount_in_cents
+               )
     end
 
     test "delete_paid_bill/1 deletes the paid_bill" do

@@ -18,7 +18,6 @@ defmodule BillPlannerMoneyTypeConvertTest do
 
   describe "convert_field_name_to_cents/1" do
     test "ensure field name is appended with _in_cents and converted to atom" do
-      # field_name = BuyHigh.Money.convert_field_name_to_cents("test")
       assert :test_in_cents = MoneyTypeConvert.convert_field_name_to_cents("test")
     end
   end
@@ -36,16 +35,13 @@ defmodule BillPlannerMoneyTypeConvertTest do
 
   describe "set_price_in_cents/2" do
     test "ensure dollar string is converted to int in changeset" do
-        paid_bill = %{amount: "53.03", date: Date.utc_today(),}
-        changeset = cast(%PaidBill{}, paid_bill, [:amount, :date])
-      #security = %{symbol: "VDHG", name: "Vanguard", price: "53.03"}
-      #changeset = cast(%Security{}, security, [:name, :symbol, :security_type_id, :price])
+      paid_bill = %{amount: "53.03", date: Date.utc_today()}
+      changeset = cast(%PaidBill{}, paid_bill, [:amount, :date])
 
       assert %{amount_in_cents: value} =
                MoneyTypeConvert.set_price_in_cents(changeset, :amount).changes
 
       assert 5303 = value
     end
-
   end
 end

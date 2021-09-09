@@ -54,7 +54,7 @@ defmodule BillPlanner.MixProject do
       {:money, git: "https://github.com/elixirmoney/money.git", branch: "master"},
       {:excoveralls, "~> 0.14", only: :test},
       {:sobelow, "~> 0.8", only: :dev, runtime: false},
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 

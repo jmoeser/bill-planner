@@ -27,6 +27,11 @@ defmodule BillPlanner.MoneyTypeConvert do
     end
   end
 
+  def set_price_from_cents(item, field) do
+    field_name = convert_field_name_to_cents(field)
+    Map.put(item, field, Money.to_string(Money.new(Map.fetch!(item, field_name)), symbol: false))
+  end
+
   def convert_cents_to_dollars(item, _field, nil), do: item
 
   def convert_cents_to_dollars(item, field, value) do
