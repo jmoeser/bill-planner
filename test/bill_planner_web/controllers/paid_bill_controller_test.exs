@@ -5,7 +5,7 @@ defmodule BillPlannerWeb.PaidBillControllerTest do
 
   @create_attrs %{amount: "42.07", paid_date: ~D[2021-09-02]}
   @update_attrs %{amount: "43.33", paid_date: ~D[2021-09-03]}
-  @invalid_attrs %{amount_in_cents: nil, paid_date: nil}
+  @invalid_attrs %{bill_id: nil, amount_in_cents: nil, paid_date: nil}
 
   describe "index" do
     test "lists all paidbills", %{conn: conn} do
@@ -23,7 +23,12 @@ defmodule BillPlannerWeb.PaidBillControllerTest do
 
   describe "create paid_bill" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.paid_bill_path(conn, :create), paid_bill: @create_attrs)
+      bill = bill_fixture()
+
+      conn =
+        post(conn, Routes.paid_bill_path(conn, :create),
+          paid_bill: Map.put(@create_attrs, :bill_id, bill.id)
+        )
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.paid_bill_path(conn, :show, id)

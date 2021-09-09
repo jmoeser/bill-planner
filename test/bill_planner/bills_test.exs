@@ -186,10 +186,10 @@ defmodule BillPlanner.BillsTest do
 
     @invalid_attrs %{amount: nil, paid_date: nil}
 
-    test "list_paidbills/0 returns all paidbills" do
+    test "list_paid_bills/0 returns all paid_bills" do
       paid_bill = paid_bill_fixture()
 
-      assert Bills.list_paidbills()
+      assert Bills.list_paid_bills()
              |> Enum.map(fn item -> MoneyTypeConvert.set_price_from_cents(item, :amount) end) == [
                paid_bill
              ]
@@ -206,11 +206,13 @@ defmodule BillPlanner.BillsTest do
     end
 
     test "create_paid_bill/1 with valid data creates a paid_bill" do
-      valid_attrs = %{amount: "42.03", paid_date: ~D[2021-09-02]}
+      bill = bill_fixture()
+      valid_attrs = %{bill_id: bill.id, amount: "42.03", paid_date: ~D[2021-09-02]}
 
       assert {:ok, %PaidBill{} = paid_bill} = Bills.create_paid_bill(valid_attrs)
       assert paid_bill.amount == "42.03"
       assert paid_bill.paid_date == ~D[2021-09-02]
+      assert paid_bill.bill_id == bill.id
     end
 
     test "create_paid_bill/1 with invalid data returns error changeset" do

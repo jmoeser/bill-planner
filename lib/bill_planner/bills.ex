@@ -305,7 +305,7 @@ defmodule BillPlanner.Bills do
       [%PaidBill{}, ...]
 
   """
-  def list_paidbills do
+  def list_paid_bills do
     Repo.all(PaidBill)
   end
 

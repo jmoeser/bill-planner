@@ -5,7 +5,7 @@ defmodule BillPlannerWeb.PaidBillController do
   alias BillPlanner.Bills.PaidBill
 
   def index(conn, _params) do
-    paidbills = Bills.list_paidbills()
+    paidbills = Bills.list_paid_bills()
     render(conn, "index.html", paidbills: paidbills)
   end
 

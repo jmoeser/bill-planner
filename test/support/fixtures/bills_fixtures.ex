@@ -62,9 +62,12 @@ defmodule BillPlanner.BillsFixtures do
   Generate a paid_bill.
   """
   def paid_bill_fixture(attrs \\ %{}) do
+    bill = bill_fixture()
+
     {:ok, paid_bill} =
       attrs
       |> Enum.into(%{
+        bill_id: bill.id,
         amount: "42.03",
         paid_date: ~D[2021-09-02]
       })
