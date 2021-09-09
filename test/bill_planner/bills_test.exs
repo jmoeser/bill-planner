@@ -129,7 +129,12 @@ defmodule BillPlanner.BillsTest do
     end
 
     test "create_bill/1 with valid data creates a bill" do
+      type = type_fixture()
+      provider = provider_fixture()
+
       valid_attrs = %{
+        type_id: type.id,
+        provider_id: provider.id,
         finish_date: ~D[2021-09-02],
         recurrence_in_days: 42,
         start_date: ~D[2021-09-02]
@@ -139,6 +144,8 @@ defmodule BillPlanner.BillsTest do
       assert bill.finish_date == ~D[2021-09-02]
       assert bill.recurrence_in_days == 42
       assert bill.start_date == ~D[2021-09-02]
+      assert bill.provider_id == provider.id
+      assert bill.type_id == type.id
     end
 
     test "create_bill/1 with invalid data returns error changeset" do

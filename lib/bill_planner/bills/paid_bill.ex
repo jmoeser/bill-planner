@@ -3,9 +3,10 @@ defmodule BillPlanner.Bills.PaidBill do
   import Ecto.Changeset
 
   alias BillPlanner.MoneyTypeConvert
+  alias BillPlanner.Bills.Bill
 
   schema "paid_bills" do
-    belongs_to(:bill, BillPlanner.Bills.Bill)
+    belongs_to(:bill, Bill)
     field :amount, :string, virtual: true
     field :amount_in_cents, :integer
     field :paid_date, :date

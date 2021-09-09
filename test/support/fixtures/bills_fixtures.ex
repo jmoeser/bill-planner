@@ -46,9 +46,14 @@ defmodule BillPlanner.BillsFixtures do
   Generate a bill.
   """
   def bill_fixture(attrs \\ %{}) do
+    type = type_fixture()
+    provider = provider_fixture()
+
     {:ok, bill} =
       attrs
       |> Enum.into(%{
+        provider_id: provider.id,
+        type_id: type.id,
         finish_date: ~D[2021-09-02],
         recurrence_in_days: 42,
         start_date: ~D[2021-09-02]

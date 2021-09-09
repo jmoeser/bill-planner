@@ -23,7 +23,13 @@ defmodule BillPlannerWeb.BillControllerTest do
 
   describe "create bill" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.bill_path(conn, :create), bill: @create_attrs)
+      type = type_fixture()
+      provider = provider_fixture()
+
+      conn =
+        post(conn, Routes.bill_path(conn, :create),
+          bill: Map.put(@create_attrs, :type_id, type.id) |> Map.put(:provider_id, provider.id)
+        )
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.bill_path(conn, :show, id)
