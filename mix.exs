@@ -50,8 +50,7 @@ defmodule BillPlanner.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      # {:money, "~> 1.8", override: true},
-      {:money, git: "https://github.com/elixirmoney/money.git", branch: "master"},
+      {:money, "~> 1.9"},
       {:excoveralls, "~> 0.14", only: :test},
       {:sobelow, "~> 0.8", only: :dev, runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
