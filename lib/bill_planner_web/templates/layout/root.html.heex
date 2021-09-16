@@ -5,26 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "BillPlanner", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "Bill Planner", suffix: " · Home" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
+    <header class="header">
+      <section class="section">
+
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <p class="navbar-item"><strong>Bill Planner</strong></p>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+
+              <a class="navbar-item">
+                Documentation
+              </a>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
+
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    About
+                  </a>
+                  <a class="navbar-item">
+                    Jobs
+                  </a>
+                  <a class="navbar-item">
+                    Contact
+                  </a>
+                  <hr class="navbar-divider">
+                  <a class="navbar-item">
+                    Report an issue
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="navbar-end">
+                <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "button is-link" %>
+                    </div>
+                </div>
+                <% end %>
+               <%= render "_user_menu.html", assigns %>
+            </div>
+          </div>
         </nav>
+
         <a href="https://phoenixframework.org/" class="phx-logo">
           <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
         </a>
       </section>
     </header>
+
     <%= @inner_content %>
+
   </body>
 </html>
