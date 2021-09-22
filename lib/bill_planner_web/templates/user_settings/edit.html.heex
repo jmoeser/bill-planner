@@ -1,53 +1,104 @@
-<h1>Settings</h1>
 
-<h3>Change email</h3>
+<div class="column is-half is-offset-one-quarter content">
 
-<.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
-  <%= if @email_changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+    <h1>Settings</h1>
+
+    <div class="block">
+
+        <h3>Change email</h3>
+
+        <.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
+          <%= if @email_changeset.action do %>
+            <div class="notification is-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
+          <% end %>
+
+          <%= hidden_input f, :action, name: "action", value: "update_email" %>
+
+          <%= label f, :email, class: "label" %>
+          <p class="control has-icons-left">
+            <%= email_input f, :email, required: true, class: "input" %>
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+          </p>
+          <%= error_tag f, :email %>
+
+          <%= label f, :current_password, for: "current_password_for_email", class: "label" %>
+          <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email", class: "input" %>
+          <%= if message = f.errors[:current_password] do %>
+            <div class="notification is-danger is-light"><%= translate_error(message) %></div>
+          <% end %>
+
+          <div>
+            <%= submit "Change email", class: "button is-info is-light" %>
+          </div>
+        </.form>
+
     </div>
-  <% end %>
 
-  <%= hidden_input f, :action, name: "action", value: "update_email" %>
+    <div class="block">
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
+        <h3>Change password</h3>
 
-  <%= label f, :current_password, for: "current_password_for_email" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
-  <%= error_tag f, :current_password %>
+        <.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
+          <%= if @password_changeset.action do %>
+            <div class="notification is-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
+          <% end %>
 
-  <div>
-    <%= submit "Change email" %>
-  </div>
-</.form>
+          <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
-<h3>Change password</h3>
+          <div class="field">
 
-<.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
-  <%= if @password_changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+            <%= label f, :password, "New password", class: "label" %>
+            <%= password_input f, :password, required: true, class: "input" %>
+
+            <%= if message = f.errors[:password] do %>
+                <div class="help notification is-danger is-light">
+                    <%= translate_error(message) %>
+                </div>
+            <% end %>
+
+          </div>
+
+          <div class="field">
+
+            <%= label f, :password_confirmation, "Confirm new password", class: "label" %>
+            <%= password_input f, :password_confirmation, required: true, class: "input" %>
+            <%= if message = f.errors[:password_confirmation] do %>
+            <div class="help notification is-danger is-light">
+              <%= translate_error(message) %>
+            </div>
+            <% end %>
+
+          </div>
+
+          <div class="field">
+
+              <%= label f, :current_password, for: "current_password_for_password", class: "label" %>
+
+              <%= if message = f.errors[:current_password] do %>
+                <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password", class: "input is-danger" %>
+              <% else %>
+                <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password", class: "input" %>
+              <% end %>
+
+              <%= if message = f.errors[:current_password] do %>
+              <div class="help notification is-danger is-light">
+                <%= translate_error(message) %>
+              </div>
+              <% end %>
+
+          </div>
+
+          <div class="block">
+            <%= submit "Change password", class: "button is-info is-light" %>
+          </div>
+        </.form>
+
     </div>
-  <% end %>
 
-  <%= hidden_input f, :action, name: "action", value: "update_password" %>
-
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
-
-  <%= label f, :current_password, for: "current_password_for_password" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password" %>
-  <%= error_tag f, :current_password %>
-
-  <div>
-    <%= submit "Change password" %>
-  </div>
-</.form>
+</div>
