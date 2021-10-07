@@ -21,7 +21,8 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 ## Run locally
 
 ```
-podman run --name bill_planner_dev --rm -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d docker.io/library/postgres:13
+podman run --name bill_planner_dev --rm -e POSTGRES_PASSWORD=postgres \
+    -p 5432:5432 -d docker.io/library/postgres:13
 mix ecto.create
 mix ecto.migrate
 mix phx.server
