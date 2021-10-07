@@ -7,6 +7,8 @@ defmodule BillPlannerWeb.PaidBillControllerTest do
   @update_attrs %{amount: "43.33", paid_date: ~D[2021-09-03]}
   @invalid_attrs %{bill_id: nil, amount_in_cents: nil, paid_date: nil}
 
+  setup :register_and_log_in_user
+
   describe "index" do
     test "lists all paidbills", %{conn: conn} do
       conn = get(conn, Routes.paid_bill_path(conn, :index))

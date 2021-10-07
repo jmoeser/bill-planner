@@ -7,6 +7,8 @@ defmodule BillPlannerWeb.TypeControllerTest do
   @update_attrs %{type: "some updated type"}
   @invalid_attrs %{type: nil}
 
+  setup :register_and_log_in_user
+
   describe "index" do
     test "lists all types", %{conn: conn} do
       conn = get(conn, Routes.type_path(conn, :index))

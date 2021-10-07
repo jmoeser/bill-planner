@@ -7,6 +7,8 @@ defmodule BillPlannerWeb.BillControllerTest do
   @update_attrs %{finish_date: ~D[2021-09-03], recurrence_in_days: 43, start_date: ~D[2021-09-03]}
   @invalid_attrs %{finish_date: nil, recurrence: nil, start_date: nil}
 
+  setup :register_and_log_in_user
+
   describe "index" do
     test "lists all bills", %{conn: conn} do
       conn = get(conn, Routes.bill_path(conn, :index))

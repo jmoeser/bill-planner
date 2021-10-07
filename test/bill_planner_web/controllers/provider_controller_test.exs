@@ -7,6 +7,8 @@ defmodule BillPlannerWeb.ProviderControllerTest do
   @update_attrs %{name: "some updated name"}
   @invalid_attrs %{name: nil}
 
+  setup :register_and_log_in_user
+
   describe "index" do
     test "lists all providers", %{conn: conn} do
       conn = get(conn, Routes.provider_path(conn, :index))
