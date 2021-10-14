@@ -25,6 +25,7 @@ podman run --name bill_planner_dev --rm -e POSTGRES_PASSWORD=postgres \
     -p 5432:5432 -d docker.io/library/postgres:13
 mix ecto.create
 mix ecto.migrate
+mix run priv/repo/dev-seed.exs
 mix phx.server
 ```
 

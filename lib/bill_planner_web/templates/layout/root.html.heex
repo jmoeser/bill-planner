@@ -15,7 +15,7 @@
 
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <p class="navbar-item"><strong>Bill Planner</strong></p>
+            <p class="navbar-item"><strong><%= link "Bill Planner", to: Routes.page_path(@conn, :index) %></strong></p>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
               <span aria-hidden="true"></span>
@@ -26,13 +26,15 @@
 
           <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item">
-                Home
-              </a>
+              <%= link "Bills", to: Routes.bill_path(@conn, :index), class: "navbar-item" %>
 
-              <a class="navbar-item">
-                Documentation
-              </a>
+              <%= link "Paid Bills", to: Routes.paid_bill_path(@conn, :index), class: "navbar-item" %>
+
+              <%= link "Bill Types", to: Routes.type_path(@conn, :index), class: "navbar-item" %>
+
+              <%= link "Providers", to: Routes.provider_path(@conn, :index), class: "navbar-item" %>
+
+              <!--
 
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -55,6 +57,7 @@
                   </a>
                 </div>
               </div>
+              -->
             </div>
 
             <div class="navbar-end">
@@ -72,7 +75,7 @@
       </section>
     </header>
 
-    <section class="section">
+    <section class="section content">
         <%= @inner_content %>
     </section>
 

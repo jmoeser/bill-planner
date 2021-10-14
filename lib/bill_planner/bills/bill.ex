@@ -20,6 +20,6 @@ defmodule BillPlanner.Bills.Bill do
   def changeset(bill, attrs) do
     bill
     |> cast(attrs, [:type_id, :provider_id, :start_date, :recurrence_in_days, :finish_date])
-    |> validate_required([:type_id, :provider_id, :start_date, :recurrence_in_days, :finish_date])
+    |> validate_required([:type_id, :provider_id, :start_date, :recurrence_in_days])
   end
 end
